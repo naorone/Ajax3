@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        .centro{
+            display:block;
+            text-align:center;
+            background-color: yellow;
+        }
+        img{
+            height: 250px;
+            width: 175px;
+            padding-left: 10px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+        }
+        img:hover {
+            height: 280px;
+            width: 200px;
+        }
+    </style>
+
+    <script>
+        window.onload=init;
+        let target="";
+
+        function init()
+        {
+            document.getElementById("rdogs").addEventListener("click",ajax);
+            document.getElementById("origen").addEventListener("click",ajax);
+            document.getElementById("snatch").addEventListener("click",ajax);
+            document.getElementById("trainspotting").addEventListener("click",ajax);
+            document.getElementById("batman").addEventListener("click",ajax);
+            document.getElementById("gladiator").addEventListener("click",ajax);
+
+        }
+        function sinopsis()
+        {
+
+
+            if (http.readyState === 4) {
+                // Se ha recibido la respuesta.
+                if (http.status === 200) {
+                    // Aquí escribiremos lo que queremos que
+                    // se ejecute tras recibir la respuesta
+                    let datosDoc = http.responseText;
+                    document.getElementById("sinopsis").textContent=datosDoc;
+                    let title= document.getElementsByTagName("h2");
+                    title[0].textContent= "SINOPSIS DE "+target.toUpperCase();
+
+                } else {
+                    // Ha ocurrido un error
+                    alert(
+                        "Error:" + http.statusText);
+                }
+            }
+
+
+
+        }
+
+        function ajax(event)
+        {
+
+            event.preventDefault();
+            target= event.target.id;
+            let url ="./" + target +".txt";
+            http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.onreadystatechange= sinopsis;
+            http.send();
+
+
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+    <div class="centro">
+
+            <img id="rdogs" src="img/rdogs.jpg">
+
+            <img id="origen" src="img/inception.jpg">
+
+            <img id="snatch" src="img/snatch.jpg">
+
+            <img id="trainspotting" src="img/trainsp.jpg">
+
+            <img id="batman" src="img/batman.jpg">
+
+            <img id="gladiator" src="img/gladiator.jpg">
+
+    </div>
+    <div class="centro">
+        <h2>SINOPSIS DE LA PELÍCULA</h2>
+        <p id="sinopsis"></p>
+    </div>
+</body>
+</html>
